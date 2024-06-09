@@ -1,0 +1,28 @@
+.code-container {
+    margin-bottom: 10px;
+  }
+  
+  .code-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #001529;
+    color: white;
+    padding: 10px;
+    border-top-right-radius: 8px; /* Rounded corners */
+    border-top-left-radius: 8px;  /* Rounded corners */
+  }
+  
+  .expcollbtn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    margin-left: 5px;
+  }
+  
+  .collapsed .monaco-editor {
+    display: none;
+  }
+  
