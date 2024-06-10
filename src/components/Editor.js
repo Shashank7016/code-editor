@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import 'codemirror/lib/codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -22,11 +22,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompressAlt, faExpandAlt, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 export default function Editor(props) {
-  const { language, displayName, value, onChange, onDownload } = props;
+  const { userId, editorId, language, displayName, value, onChange, onSendChange, onDownload } = props;
   const [open, setOpen] = useState(true);
+  const [changes, setChanges] = useState('');
+  const changesRef = useRef({});  // Store incoming changes
+  const ws = useRef(null);
 
   function handleChange(editor, data, value) {
+    console.log(`Editor change: ${language}`, value);
     onChange(value);
+    onSendChange(value);
   }
 
   function handleEditorDidMount(editor) {
@@ -40,6 +45,49 @@ export default function Editor(props) {
     });
   }
 
+  useEffect(() => {
+    ws.current = new WebSocket('ws://localhost:8080');
+
+    ws.current.onmessage = (event) => {
+      try {
+        const { userId: incomingUserId, editorId: incomingEditorId, language: incomingLanguage, value: incomingValue } = JSON.parse(event.data);
+        if (incomingUserId !== userId && incomingLanguage === language) {
+          console.log(`Received changes for ${language} from user ${incomingUserId}:`, incomingValue);
+          changesRef.current[incomingEditorId] = incomingValue; // Store incoming changes in ref
+        }
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+      }
+    };
+
+    return () => {
+      ws.current.close();
+    };
+  }, [userId, language]);
+
+  const handleReviewChanges = () => {
+    const editorIds = Object.keys(changesRef.current);
+    const changesToReview = editorIds.map(editorId => ({
+      editorId,
+      value: changesRef.current[editorId],
+    })).filter(change => change.value !== undefined);
+
+    console.log(`Reviewing changes:`, changesToReview);
+    alert(`Changes:\n${JSON.stringify(changesToReview, null, 2) || 'No changes available'}`);
+  };
+
+  const handlePullChanges = (editorId) => {
+    editorId=Object.keys(changesRef.current);// change made
+    const storedChanges = changesRef.current[editorId];
+    console.log(`Pulling changes for editor ${editorId}: ${storedChanges}`);
+    if (storedChanges) {
+      onChange(storedChanges);
+      setChanges(storedChanges);
+    } else {
+      alert('No changes to pull.');
+    }
+  };
+
   return (
     <div className={`code-container ${open ? '' : 'collapsed'}`}>
       <div className="code-title">
@@ -50,6 +98,12 @@ export default function Editor(props) {
           </button>
           <button className="expcollbtn" onClick={onDownload}>
             <FontAwesomeIcon icon={faDownload} />
+          </button>
+          <button className="expcollbtn" onClick={handleReviewChanges}>
+            Review Changes
+          </button>
+          <button className="expcollbtn" onClick={() => handlePullChanges(editorId)}>
+            Pull Changes
           </button>
         </div>
       </div>

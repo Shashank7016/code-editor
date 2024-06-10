@@ -18,10 +18,12 @@
     "react-monaco-editor": "^0.55.0",
     "react-scripts": "^5.0.1",
     "tern": "^0.24.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "ws": "^8.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:port3001": "cross-env PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,6 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@types/codemirror": "^5.60.15"
+    "@types/codemirror": "^5.60.15",
+    "cross-env": "^7.0.3"
   }
 }
