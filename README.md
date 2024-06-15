@@ -104,6 +104,15 @@ Custom hook for managing state with localStorage, ensuring data persistence acro
 
 WebSocket server that handles real-time communication between clients. Broadcasts changes made by one user to all other connected users.
 
+## Live Deployment
+The project is deployed live on Netlify at: https://code-editor-shashank7016.netlify.app/
+
+## Future Enhancements
+Add user authentication and authorization
+Enhance real-time collaboration features with more granular control
+Improve the user interface for a better user experience
+Add more advanced code editing features and integrations
+
 ## Running the WebSocket Server
 
 To start the WebSocket server, run:
@@ -111,10 +120,3 @@ To start the WebSocket server, run:
 ```bash
 node server.js
 The server will be running on ws://localhost:8080.
-## Live Deployment
-The project is deployed live on Netlify at: https://code-editor-shashank7016.netlify.app/
-## Future Enhancements
-Add user authentication and authorization
-Enhance real-time collaboration features with more granular control
-Improve the user interface for a better user experience
-Add more advanced code editing features and integrations
