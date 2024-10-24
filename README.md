@@ -2,7 +2,7 @@
 
 This project is a collaborative code editor built with React and WebSocket. It allows multiple users to edit HTML, CSS, and JavaScript code in real-time, with the ability to review and pull changes from other users' editors.
 [For Latest changes please clone the test branch instead]
-Live Website: [https://code-editor-shashank7016.netlify.app/](https://code-editor-shashank7016.netlify.app/)
+Live Website: [code-editor-collaborate.vercel.app/](code-editor-collaborate.vercel.app/)
 
 ## Available Scripts
 
@@ -105,7 +105,7 @@ Custom hook for managing state with localStorage, ensuring data persistence acro
 WebSocket server that handles real-time communication between clients. Broadcasts changes made by one user to all other connected users.
 
 ## Live Deployment
-The project is deployed live on Netlify at: https://code-editor-shashank7016.netlify.app/
+The project is deployed live on Vercel at: code-editor-collaborate.vercel.app/
 
 ## Future Enhancements
 1)Add user authentication and authorization
