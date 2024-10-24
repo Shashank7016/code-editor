@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Tabs, message, Tooltip } from 'antd'
 import { PlusOutlined, DownloadOutlined, CopyOutlined } from '@ant-design/icons'
 import Editor from './Editor'
+import useLocalStorage from '../hooks//useLocalStorage'
 
 const { TabPane } = Tabs
 
@@ -13,10 +14,10 @@ interface EditorData {
 }
 
 export default function EditorManager() {
-  const [editors, setEditors] = useState<EditorData[]>([
+  const [editors, setEditors] = useLocalStorage<EditorData[]>('editors', [
     { id: '1', html: '', css: '', js: '' }
   ])
-  const [activeKey, setActiveKey] = useState('1')
+  const [activeKey, setActiveKey] = useLocalStorage<string>('activeKey', '1')
   const [previewSrcDoc, setPreviewSrcDoc] = useState('')
 
   const addEditor = () => {
