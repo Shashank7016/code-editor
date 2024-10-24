@@ -2,7 +2,7 @@
 
 This project is a collaborative code editor built with React and WebSocket. It allows multiple users to edit HTML, CSS, and JavaScript code in real-time, with the ability to review and pull changes from other users' editors.
 [For Latest changes please clone the test branch instead]
-Live Website: (code-editor-collaborate.vercel.app/)
+Live Website: [code-editor-collaborate.vercel.app/])
 
 ## Available Scripts
 
